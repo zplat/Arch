@@ -4,19 +4,17 @@
 # Before using be sure that the .ssh file has been set up!!
 ############################################################
 
+udiskie &
 
 # Create XDG user directories
 xdg-user-dirs-update
 
-# Setup rustup
-rustup default nightly
 
-# Install paru
-mkdir ~/.local/respositories
-cd ~/.local/repositories/
-git clone https://aur.archlinux.org/paru.git
-cd paru
-makepkg -si
+# Setup pass password manager
+cp -r /run/media/phlight/Partition1/configure/gnupg ~/.local/share
+cp -r /run/media/phlight/Partition1/configure/.ssh ~/
+
+git clone git@github.com:zplat/password-store.git ~/.password-store
 
 # Install dotfiles.
 git clone --bare --recurse-submodules https://github.com/zplat/MyDotfiles.git $HOME/.dotfiles
@@ -40,14 +38,48 @@ config config status.showUntrackedFiles no
 
 sudo pacman -Syy
 
-sudo pacman -S imv mpv feh sxiv
-sudo pacman -S vieb nodejs
-sudo pacman -S neovim zk 
-sudo pacman -S tmux bat fzf broot fd ripgrep rofi picom fcitx-mozc xbindkeys xorg-xinit
-sudo pacman -S pass 
-sudo pacman -S sway swayidle swaylock foot xdg-desktop-portal-wlr bemenu-wayland bemenu 
+# Setup rustup
+rustup default nightly
 
-paru -S alacritty-git buku-git awesome-git lynx-git 
-paru -S dropbox dropbox-cli 
-paru -S river-git wlr-randr-git 
-paru -S nerd-fonts-complete ttf-envy-code-r
+# Install respositories
+mkdir ~/.local/respositories
+cd ~/.local/repositories/
+git clone https://aur.archlinux.org/paru.git            #Feature packed AUR helper
+git clone https://github.com/zplat/Arch.git             #My Arch Installation
+git clone https://github.com/sereinity/ofi-pass.git     #Is a password promptor for pass 
+cd paru
+makepkg -si
+cd
+
+if [ -s corepkglist.txt ]
+then
+        # The file is not-empty.
+        sudo pacman -S --needed - < corepkglist.txt
+else
+        # The file is empty.
+        sudo pacman -S --needed imv mpv feh sxiv
+        sudo pacman -S --needed nodejs python-gpgme 
+        sudo pacman -S --needed neovim zk 
+        sudo pacman -S --needed tmux bat fzf broot fd ripgrep rofi 
+        sudo pacman -S --needed picom fcitx-mozc xbindkeys xorg-xinit
+        sudo pacman -S --needed pass 
+        sudo pacman -S --needed sway swayidle swaylock foot  
+        sudo pacman -S --needed xdg-desktop-portal-wlr  
+        sudo pacman -S --needed bemenu-wayland bemenu 
+fi
+
+
+if [ -s aurpkglist.txt ]
+then
+        # The file is not-empty.
+        paru  -S --needed - < aurpkglist.txt
+else
+        # The file is empty.
+        paru -S alacritty-git vieb-git buku-git awesome-git lynx-git 
+        paru -S dropbox dropbox-cli 
+        paru -S river-git wlr-randr-git 
+        paru -S nerd-fonts-complete ttf-envy-code-r
+fi
+
+dropbox 
+
