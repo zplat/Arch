@@ -5,8 +5,8 @@ HOST_NAME=""
 ROOT_PASSWD=""
 USER=""
 USER_PASSWD=""
-SETUP_URL="https://raw.githubusercontent.com/zplat/ArchInstall/master/Arch_Post_Install.sh"
-LOCAL_RESPOSITORY=".local/repositories/LinuxInstallers"
+SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/main/basic_home_setup.sh"
+LOCAL_RESPOSITORY=".local/repositories/Arch"
 # set time
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 hwclock --systohc --localtime
@@ -48,7 +48,7 @@ pacman -S --noconfirm base-devel linux-headers
 pacman -S --noconfirm xdg-user-dirs xdg-utils rustup
 pacman -S --noconfirm zsh zsh-completions
 pacman -S --noconfirm terminus-font
-pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g
+pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl
 
 pacman -S --noconfirm xf86-video-amdgpu amd-ucode
 
@@ -178,6 +178,9 @@ systemctl enable reflector.service
 pacman -s --noconfirm os-prober
 echo "grub_disable_os_prober=false" >> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
+
+# Install post install script.
+curl --url "$SETUP_URL" >> "/home/$USER/hell.sh"
 
 # all done 
 printf "\e[1;32mdone! type exit, umount -a and reboot.\e[0m"
