@@ -7,11 +7,12 @@ USER=""
 USER_PASSWD=""
 SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/main/basic_home_setup.sh"
 LOCAL_RESPOSITORY=".local/repositories/Arch"
+
 # set time
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 hwclock --systohc --localtime
 
-# set language and font 
+# set language locale. Well over the top! 
 echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
 echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
@@ -141,11 +142,21 @@ ExecStart = /usr/bin/udiskie
 WantedBy = multi-user.target
 " > /etc/systemd/user/udiskie.service
 
+#Systemd to start udiskie on startup
+chmod 755 /etc/systemd/user/udiskie.service
+
+#Update systemd to ensure dropbox starts on login
+systemctl enable dropbox@$USER
+
 
 # cacche
 pacman -s --noconfirm --needed ccache
-sed -i '67 s/!ccache/ccache/' /etc/makepkg.conf
-sed -i '48 s/-j2/"-j5 -l4"/' /etc/makepkg.conf
+sed -i 'x;/^BUILDENV/s/!ccache/ccache/' /etc/makepkg.conf
+CORES=$(nproc)
+LOAD=$((CORES/2))
+JOBS=$((LOAD+1))
+
+sed -i "x;/^#MAKEFLAGS/s/"-j2"/-j${JOBS} -l${LOAD}/ " /etc/makepkg.conf
 
 # setup swap
 truncate -s 0 /swap/swapfile
@@ -164,6 +175,7 @@ echo "/swap/swapfile	none	swap	defaults	0 0" >> /etc/fstab
 useradd -m -g users -s /bin/zsh "$user"
 echo "${user}:${user_passwd}" | chpasswd
 curl --url "$setup_url" >> "/home/$user/shell.sh"
+
 # make user an administrator
 echo "$user all=(all) all" >> "/etc/sudoers.d/$user"
 
