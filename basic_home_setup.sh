@@ -4,25 +4,19 @@
 # Before using be sure that the .ssh file has been set up!!
 ############################################################
 
-udiskie &
-
-# Create XDG user directories
-xdg-user-dirs-update
-
-
-# Setup pass password manager
-cp -r /run/media/phlight/Partition1/configure/gnupg ~/.local/share
-cp -r /run/media/phlight/Partition1/configure/.ssh ~/
-
+udiskie &                  #Start udiskie 
+xdg-user-dirs-update       #Create XDG user directories
+#--------------------------Setup pass password manager
+DIR="/run/media/phlight/Partition1/configure"
+cp -r "$DIR/gnupg" ~/.local/share
+cp -r "$DIR/.ssh" ~/
 git clone git@github.com:zplat/password-store.git ~/.password-store
-
-# Install dotfiles.
-git clone --bare --recurse-submodules https://github.com/zplat/MyDotfiles.git $HOME/.dotfiles
-
+#-------------------------- Install dotfiles.
+MYDOTFILES="https://github.com/zplat/MyDotfiles.git"
+git clone --bare --recurse-submodules "$MYDOTFILES" "$HOME/.dotfiles"
 function config {
 	/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
-
 mkdir -p .config-backup
 config checkout
 if [ $? = 0 ] ; then
@@ -34,14 +28,10 @@ fi;
 config checkout -f
 config submodule update --init --recursive
 config config status.showUntrackedFiles no
-
-
-sudo pacman -Syy
-
-# Setup rustup
-rustup default nightly
-
-# Install respositories
+#--------------------------
+sudo pacman -Syy        #Update pacman package database
+rustup default nightly  # Setup rustup
+#-----------------------Install respositories
 mkdir ~/.local/respositories
 cd ~/.local/repositories/
 git clone https://aur.archlinux.org/paru.git            #Feature packed AUR helper
@@ -51,6 +41,7 @@ cd paru
 makepkg -si
 cd
 
+#-----------------------Install packages
 if [ -s corepkglist.txt ]
 then
         # The file is not-empty.
@@ -81,5 +72,6 @@ else
         paru -S nerd-fonts-complete ttf-envy-code-r
 fi
 
+#----------------------Start Dropbox
 dropbox 
 
