@@ -6,7 +6,6 @@
 #
 ############################################################
 
-#udiskie &                  #Start udiskie 
 xdg-user-dirs-update       #Create XDG user directories
 
 #-----------------------Setup password manager
@@ -63,10 +62,10 @@ else
         sudo pacman -S --needed imv mpv feh sxiv
         sudo pacman -S --needed nodejs python-gpgme 
         sudo pacman -S --needed neovim zk 
-        sudo pacman -S --needed tmux bat fzf broot fd ripgrep rofi 
-        sudo pacman -S --needed picom fcitx-mozc xbindkeys xorg-xinit
-        sudo pacman -S --needed pass 
-        sudo pacman -S --needed sway swayidle swaylock foot  
+	sudo pacman -S --needed xorg xorg-apps
+        sudo pacman -S --needed tmux bat fzf broot fd ripgrep rofi 		
+        sudo pacman -S --needed picom fcitx-mozc xbindkeys xorg-xinit		
+        sudo pacman -S --needed sway swayidle swaylock foot  			# 
         sudo pacman -S --needed xdg-desktop-portal-wlr  
         sudo pacman -S --needed bemenu-wayland bemenu 
 fi
