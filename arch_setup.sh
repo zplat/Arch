@@ -3,7 +3,7 @@
 #                           Arch install with btrfs.
 
 #-----------------------------------------------------------------------------
-#                                                                Which drives 
+#                                                                Which partitions 
 
 BOOTDRIVE="/dev/sd" # eg BOOTDRIVE="/dev/sdc1".
 ROOTDRIVE="/dev/sd" # eg BOOTDRIVE="/dev/sdc2".
@@ -13,7 +13,7 @@ HOMEDRIVE="/dev/sd" # eg BOOTDRIVE="/dev/sdc3". Can be same as ROOTDRIVE.
 #                                                                Update mirrors
 
 pacman -Syy
-pacman - reflector
+pacman -S reflector
 reflector -c "United Kingdom" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Syy
 
@@ -39,13 +39,14 @@ mkfs.btrfs -f "$HOMEDRIVE"  #Format Home partition
 #                                                               Mount drives
 
 mount "$ROOTDRIVE" /mnt             # Volume
+
 btrfs subvolume create /mnt/@       # Create the subvolumes.
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@var
 btrfs subvolume create /mnt/@srv
 btrfs subvolume create /mnt/@opt
 btrfs subvolume create /mnt/@tmp
-btrfs subvolume create /mnt/@swap
+
 umount /mnt                         # Unmount the drive to mount the subvolumes.
 
 #-----------------------------------------------------------------------------
@@ -55,15 +56,13 @@ SSD_OPTIONS="noatime,compress=zstd,space_cache=v2,discard=async,subvol"
 
 mount -o "$SSD_OPTIONS"=@ "$ROOTDRIVE" /mnt
 
-mkdir /mnt/{home,boot,var,srv,opt,tmp,swap}
+mkdir /mnt/{home,boot,var,srv,opt,tmp}
 
 mount -o "$SSD_OPTIONS"=@home "$HOMEDRIVE" /mnt/home
 mount -o "$SSD_OPTIONS"=@srv "$ROOTDRIVE" /mnt/srv
 mount -o "$SSD_OPTIONS"=@opt "$ROOTDRIVE" /mnt/opt
 mount -o "$SSD_OPTIONS"=@tmp "$ROOTDRIVE" /mnt/tmp
 mount -o "$SSD_OPTIONS"=@var "$ROOTDRIVE" /mnt/var
-
-mount -o ssd,discard,subvol=@swap "$ROOTDRIVE" /mnt/swap
 
 mount "$BOOTDRIVE" /mnt/boot                            # Mount the boot partition.
 
