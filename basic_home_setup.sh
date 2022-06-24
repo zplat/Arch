@@ -81,11 +81,17 @@ else
         # The file is empty.
         paru -S alacritty-git vieb-git buku-git awesome-git lynx-git 
         paru -S dropbox dropbox-cli 
+	paru -S zramd
         paru -S river-git wlr-randr-git 
         paru -S nerd-fonts-complete ttf-envy-code-r
 fi
 
-#----------------------Start Dropbox
+#----------------------Start Dropbox and systemd enable
 
 dropbox 
 
+sudo systemctl enable dropbox@$USER
+
+#----------------------zramd systemd start and enable
+
+sudo systemctl enable --now zramd.service
