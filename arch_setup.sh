@@ -12,8 +12,6 @@ HOMEDRIVE="/dev/sd" # eg BOOTDRIVE="/dev/sdc3". Can be same as ROOTDRIVE.
 #-----------------------------------------------------------------------------
 #                                                                Update mirrors
 
-pacman -Syy
-pacman -S reflector
 reflector -c "United Kingdom" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Syy
 
