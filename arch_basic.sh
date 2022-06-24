@@ -9,10 +9,10 @@
 #-------------------------------------------------------------------------------
 #                                                                  Key variables
 
-HOST_NAME=""
-ROOT_PASSWD=""
-USER=""
-USER_PASSWD=""
+HOST_NAME=''
+ROOT_PASSWD=''
+USER=''
+USER_PASSWD=''
 
 SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/main/basic_home_setup.sh"
 LOCAL_RESPOSITORY=".local/repositories/Arch"
@@ -80,8 +80,8 @@ chsh -s /bin/zsh
 #-------------------------------------------------------------------------------
 #                                                                  Update pacman repositories. multilib.
 
-sed -i 's/^#\[multilib\]/\[multilib]/' /etc/pacman.conf
-sed -i '/^\[multilib\]/ {n;s/^#Include =  \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/nirrorlist/}' /etc/pacman.conf
+sed -i 's/^#\[multilib\]/\[multilib\]/' /etc/pacman.conf
+sed -i '/^\[multilib\]/ {n;s/^#//}' /etc/pacman.conf
 
 #-------------------------------------------------------------------------------
 #                                                                  setup mkinitcpio for amd graphics processor. 
@@ -195,14 +195,13 @@ sed -i "x;/^#MAKEFLAGS/s/"-j2"/-j${JOBS} -l${LOAD}/ " /etc/makepkg.conf
 #-------------------------------------------------------------------------------
 #                                                                  add user
 
-useradd -m -g users -s /bin/zsh "$user"
-echo "${user}:${user_passwd}" | chpasswd
-curl --url "$setup_url" >> "/home/$user/shell.sh"
+useradd -m -g users -s /bin/zsh "$USER"
+echo "${USER}:${USER_PASSWD}" | chpasswd
 
 #-------------------------------------------------------------------------------
 #                                                                  make user an administrator
 
-echo "$user all=(all) all" >> "/etc/sudoers.d/$user"
+echo "$USER all=(all) all" >> "/etc/sudoers.d/$USER"
 
 #-------------------------------------------------------------------------------
 #                                                                  enable systemd services
