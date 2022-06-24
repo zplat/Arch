@@ -185,12 +185,17 @@ chmod 755 /etc/systemd/user/udiskie.service
 #-------------------------------------------------------------------------------
 #                                                                  cacche
 
-pacman -s --noconfirm --needed ccache
+pacman -S --noconfirm --needed ccache
 sed -i 'x;/^BUILDENV/s/!ccache/ccache/' /etc/makepkg.conf
+
+#-------------------------------------------------------------------------------
+#                                                                  cacche
+
 CORES=$(nproc)
 LOAD=$((CORES/2))
 JOBS=$((LOAD+1))
 sed -i "x;/^#MAKEFLAGS/s/"-j2"/-j${JOBS} -l${LOAD}/ " /etc/makepkg.conf
+sed -i "x;/^#MAKEFLAGS/s/^#//" /etc/makepkg.conf
 
 #-------------------------------------------------------------------------------
 #                                                                  add user
@@ -214,7 +219,7 @@ systemctl enable reflector.service
 
 #-------------------------------------------------------------------------------
 #                                                                  os-probe
-pacman -s --noconfirm os-prober
+pacman -S --noconfirm os-prober
 echo "grub_disable_os_prober=false" >> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
