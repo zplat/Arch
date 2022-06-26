@@ -85,6 +85,7 @@ else
         sudo pacman -S --needed sway swayidle swaylock foot  			# 
         sudo pacman -S --needed xdg-desktop-portal-wlr  
         sudo pacman -S --needed bemenu-wayland bemenu 
+        sudo pacman -S --needed surfraw neomutt notmuch isync
 fi
 
 #-----------------------Install AUR packages
