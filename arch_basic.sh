@@ -168,11 +168,9 @@ Exec = /bin/sh -c '/usr/bin/pacman -Qqm > /home/$USER/$LOCAL_RESPOSITORY/aurpkgl
 
 echo "[Unit]
 Description = Handle automounting of usb devices
-
 [Service]
 Type = simple
 ExecStart = /usr/bin/udiskie
-
 [Install]
 WantedBy = multi-user.target
 " > /etc/systemd/user/udiskie.service
@@ -181,15 +179,16 @@ WantedBy = multi-user.target
 #                                                                  Systemd to start udiskie on startup
 
 chmod 755 /etc/systemd/user/udiskie.service
+systemtcl --user enable udiskie.service
 
 #-------------------------------------------------------------------------------
 #                                                                  cacche
 
-pacman -S --noconfirm --needed ccache
+pacman -S ccache
 sed -i 'x;/^BUILDENV/s/!ccache/ccache/' /etc/makepkg.conf
 
 #-------------------------------------------------------------------------------
-#                                                                  cacche
+#                                                                  MAKEFLAGS
 
 CORES=$(nproc)
 LOAD=$((CORES/2))
@@ -219,6 +218,7 @@ systemctl enable reflector.service
 
 #-------------------------------------------------------------------------------
 #                                                                  os-probe
+
 pacman -S --noconfirm os-prober
 echo "grub_disable_os_prober=false" >> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -233,4 +233,4 @@ curl --url "$SETUP_URL" >> "/home/$USER/shell.sh"
 printf "\e[1;32mdone! type exit, umount -a and reboot.\e[0m"
 
 #-------------------------------------------------------------------------------
-# shred -uvz shell.sh
+shred -uvz shell.sh
