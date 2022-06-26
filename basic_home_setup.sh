@@ -11,9 +11,22 @@ xdg-user-dirs-update       #Create XDG user directories
 #-----------------------Setup password manager
 
 sudo pacman -S --needed pass 
+
 DIR="/run/media/phlight/Partition1/configure"
-cp -r "$DIR/gnupg" ~/.local/share
-cp -r "$DIR/.ssh" ~/
+
+cp -pr "$DIR/gnupg" ~/.local/share
+
+chown -R $(whoami) ~/.local/share/gnupg/
+chmod 600 ~/.local/share/gnupg/*
+chmod 700 ~/.local/share/gnupg
+
+
+cp -pr "$DIR/.ssh" ~/
+
+chown -R $(whoami) ~/.ssh
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/*
+
 git clone git@github.com:zplat/password-store.git ~/.password-store
 
 #-------------------------- Install dotfiles
@@ -40,6 +53,10 @@ config config status.showUntrackedFiles no
 sudo pacman -Syy        				# Update pacman package database
 rustup default nightly  				# Setup rustup
 
+#-----------------------Setup git password automation
+
+git config --global credential.helper "netrc -v -f $HOME/.password-store/service.gpg"
+
 #-----------------------Install respositories
 
 mkdir ~/.local/respositories
@@ -62,8 +79,8 @@ else
         sudo pacman -S --needed imv mpv feh sxiv
         sudo pacman -S --needed nodejs python-gpgme 
         sudo pacman -S --needed neovim zk 
-	sudo pacman -S --needed xorg xorg-apps
-        sudo pacman -S --needed tmux bat fzf broot fd ripgrep rofi 		
+    	sudo pacman -S --needed xorg xorg-apps alsa-utils
+        sudo pacman -S --needed tmux bat fzf broot fd ripgrep rofi tmuxp 		
         sudo pacman -S --needed picom fcitx-mozc xbindkeys xorg-xinit		
         sudo pacman -S --needed sway swayidle swaylock foot  			# 
         sudo pacman -S --needed xdg-desktop-portal-wlr  
@@ -79,8 +96,9 @@ then
 else
         # The file is empty.
         paru -S alacritty-git vieb-git buku-git awesome-git lynx-git 
+        paru -S buku-git 
         paru -S dropbox dropbox-cli 
-	paru -S zramd
+    	paru -S zramd
         paru -S river-git wlr-randr-git 
         paru -S nerd-fonts-complete ttf-envy-code-r
 fi
