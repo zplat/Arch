@@ -164,23 +164,6 @@ When = PostTransaction
 Exec = /bin/sh -c '/usr/bin/pacman -Qqm > /home/$USER/$LOCAL_RESPOSITORY/aurpkglist.txt'
 " > /usr/share/libalpm/hooks/pkgAUR.hook
 
-#------------------------Trigger udiskie on boot
-
-echo "[Unit]
-Description = Handle automounting of usb devices
-[Service]
-Type = simple
-ExecStart = /usr/bin/udiskie
-[Install]
-WantedBy = multi-user.target
-" > /etc/systemd/user/udiskie.service
-
-#-------------------------------------------------------------------------------
-#                                                                  Systemd to start udiskie on startup
-
-chmod 755 /etc/systemd/user/udiskie.service
-systemtcl --user enable udiskie.service
-
 #-------------------------------------------------------------------------------
 #                                                                  cacche
 
