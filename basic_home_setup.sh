@@ -31,7 +31,7 @@ git clone git@github.com:zplat/password-store.git ~/.password-store
 
 #-------------------------- Install dotfiles
 
-MYDOTFILES="https://github.com/zplat/MyDotfiles.git"
+MYDOTFILES="https://github.com/zplat/Dotfiles.git"
 git clone --bare --recurse-submodules "$MYDOTFILES" "$HOME/.dotfiles"
 function config {
 	/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
@@ -52,10 +52,6 @@ config config status.showUntrackedFiles no
 
 sudo pacman -Syy        				# Update pacman package database
 rustup default nightly  				# Setup rustup
-
-#-----------------------Setup git password automation
-
-git config --global credential.helper "netrc -v -f $HOME/.password-store/service.gpg"
 
 #-----------------------Install respositories
 
@@ -80,9 +76,9 @@ else
         sudo pacman -S --needed nodejs python-gpgme 
         sudo pacman -S --needed neovim zk 
     	sudo pacman -S --needed xorg xorg-apps alsa-utils
-        sudo pacman -S --needed tmux bat fzf broot fd ripgrep rofi tmuxp 		
+        sudo pacman -S --needed tmux bat fzf broot fd ripgrep tmuxp 		
         sudo pacman -S --needed picom fcitx-mozc xbindkeys xorg-xinit		
-        sudo pacman -S --needed sway swayidle swaylock foot  			# 
+        sudo pacman -S --needed sway swayidle swaylock foot swaybg  			# 
         sudo pacman -S --needed xdg-desktop-portal-wlr  
         sudo pacman -S --needed bemenu-wayland bemenu 
         sudo pacman -S --needed surfraw neomutt notmuch isync
@@ -96,11 +92,11 @@ then
         paru  -S --needed - < ~/.local/repositories/aurpkglist.txt
 else
         # The file is empty.
-        paru -S alacritty-git vieb-git buku-git awesome-git lynx-git 
-        paru -S buku-git 
+        paru -S alacritty-git awesome-git river-git
+        paru -S vieb-git buku-git lynx-git
+	paru -S rofi-lbonn-wayland-git
         paru -S dropbox dropbox-cli 
-    	paru -S zramd
-        paru -S river-git wlr-randr-git 
+    	paru -S zramd wlr-randr-git 
         paru -S nerd-fonts-complete ttf-envy-code-r
 fi
 
