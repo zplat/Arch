@@ -61,6 +61,13 @@ echo "127.0.1.1  ${HOST_NAME}.localdomain $HOST_NAME" >> /etc/hosts
 echo "root:${ROOT_PASSWD}" | chpasswd
 
 #-------------------------------------------------------------------------------
+#                                                                  Update pacman repositories. multilib.
+
+sed -i 's/^#\[multilib\]/\[multilib\]/' /etc/pacman.conf
+sed -i '/^\[multilib\]/ {n;s/^#//}' /etc/pacman.conf
+pacman -Syy
+
+#-------------------------------------------------------------------------------
 #                                                                  install packages
 
 pacman -S --noconfirm grub efibootmgr reflector
@@ -76,12 +83,6 @@ pacman -S --noconfirm xf86-video-amdgpu amd-ucode
 #                                                                  change shell bash to zsh
 
 chsh -s /bin/zsh
-
-#-------------------------------------------------------------------------------
-#                                                                  Update pacman repositories. multilib.
-
-sed -i 's/^#\[multilib\]/\[multilib\]/' /etc/pacman.conf
-sed -i '/^\[multilib\]/ {n;s/^#//}' /etc/pacman.conf
 
 #-------------------------------------------------------------------------------
 #                                                                  setup mkinitcpio for amd graphics processor. 
@@ -137,7 +138,7 @@ Type = Package
 Target = *
 [Action]
 When = PostTransaction
-Exec = /usr/bin/bash -c "/usr/bin/pacman -Qtd || /usr/bin/echo '==> no orphans found'"
+Exec = /usr/bin/bash -c \"/usr/bin/pacman -Qtd || /usr/bin/echo '==> no orphans found'\"
 " > /usr/share/libalpm/hooks/pkgClean.hook
 
 #------------------------list of Core programs
