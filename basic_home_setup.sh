@@ -6,6 +6,8 @@
 #
 ############################################################
 
+udiskie &		   #access additional partitions
+
 xdg-user-dirs-update       #Create XDG user directories
 
 #-----------------------Setup password manager
@@ -27,23 +29,30 @@ chown -R $(whoami) ~/.ssh
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
 
+eval `ssh-agent` #Start agent
+
 git clone git@github.com:zplat/password-store.git ~/.password-store
 
 #-------------------------- Install dotfiles
 
 MYDOTFILES="https://github.com/zplat/Dotfiles.git"
+
 git clone --bare --recurse-submodules "$MYDOTFILES" "$HOME/.dotfiles"
+
 function config {
 	/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
+
 mkdir -p .config-backup
 config checkout
+
 if [ $? = 0 ] ; then
 	echo "Checked out config.";
 else 
 	echo "Backing up pro-existing dot files.";
 	config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
 fi;
+
 config checkout -f
 config submodule update --init --recursive
 config config status.showUntrackedFiles no
@@ -59,7 +68,8 @@ mkdir ~/.local/respositories
 cd ~/.local/repositories/
 git clone https://aur.archlinux.org/paru.git            # Feature packed AUR helper
 git clone https://github.com/zplat/Arch.git             # My Arch Installation
-git clone https://github.com/sereinity/ofi-pass.git     # Is a password promptor for pass 
+git clone https://github.com/neovim/neovim.git		# neovim (see Chris@machine, YTube)
+#git clone https://github.com/sereinity/ofi-pass.git     # Is a password promptor for pass 
 cd paru
 makepkg -si
 cd
@@ -77,7 +87,7 @@ else
         sudo pacman -S --needed neovim zk 
     	sudo pacman -S --needed xorg xorg-apps alsa-utils
         sudo pacman -S --needed tmux bat fzf broot fd ripgrep tmuxp 		
-        sudo pacman -S --needed picom fcitx-mozc xbindkeys xorg-xinit		
+        sudo pacman -S --needed picom fcitx5-mozc xbindkeys xorg-xinit		
         sudo pacman -S --needed sway swayidle swaylock foot swaybg  			# 
         sudo pacman -S --needed xdg-desktop-portal-wlr  
         sudo pacman -S --needed bemenu-wayland bemenu 
