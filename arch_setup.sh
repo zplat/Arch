@@ -31,7 +31,7 @@ SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/master/arch_basic.sh"
 mkfs.fat -F32 "$BOOTDRIVE" #Format Boot partition.
 fatlabel "$BOOTDRIVE" BOOT # To label the boot drive.  
 mkfs.btrfs -f "$ROOTDRIVE"  #Format Root partition. Use -f to force overwrite. 
-mkfs.btrfs -f "$HOMEDRIVE"  #Format Home partition 
+mkfs.btrfs -f "$HOMEDRIVE"  #Format Home partition. Don't if already setup.
 
 #-----------------------------------------------------------------------------
 #                                                               Mount drives
