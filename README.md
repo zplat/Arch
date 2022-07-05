@@ -3,7 +3,10 @@ A personal Arch Linux installer.
 
 # 
 
-* Uses btrfs with subvolumes on one partition.
+* Partitions preset with Gparted through a live distro. 
+* Uses btrfs with subvolumes on one partition or seperate partition for home.
 * Grub boot loader with uefi.
-* Installs with both pacman and paru (core).
+* Installs paru for AUR.
+
+* Installs Window Managers RiverWM, SwayWM and AwesomeWM.
 
