@@ -59,6 +59,8 @@ config config status.showUntrackedFiles no
 
 #--------------------------
 
+zsh
+
 sudo pacman -Syy        				# Update pacman package database
 sudo pacman -S --needed rustup				# Install rust
 rustup default nightly  				# Setup rustup
@@ -83,16 +85,16 @@ then
         sudo pacman -S --needed - < ~/.local/repositories/corepkglist.txt
 else
         # The file is empty.
-        sudo pacman -S --needed imv mpv feh sxiv
-        sudo pacman -S --needed nodejs python-gpgme 
-        sudo pacman -S --needed zk wireplumber pipewire
-    	sudo pacman -S --needed xorg-server xorg-apps alsa-utils python-pillow python-pygments
-        sudo pacman -S --needed tmux bat fzf broot fd ripgrep tmuxp 		
-        sudo pacman -S --needed picom fcitx5-mozc xbindkeys xorg-xinit		
-        sudo pacman -S --needed sway swayidle swaylock foot swaybg  			# 
-        sudo pacman -S --needed xdg-desktop-portal-wlr  
-        sudo pacman -S --needed bemenu-wayland bemenu 
-        sudo pacman -S --needed surfraw neomutt notmuch isync
+        sudo pacman -S --noconfirm --needed imv mpv feh sxiv
+        sudo pacman -S --noconfirm --needed nodejs python-gpgme 
+        sudo pacman -S --noconfirm --needed zk wireplumber pipewire
+    	sudo pacman -S --noconfirm --needed xorg-server xorg-apps alsa-utils python-pillow python-pygments
+        sudo pacman -S --noconfirm --needed tmux bat fzf broot fd ripgrep tmuxp 		
+        sudo pacman -S --noconfirm --needed picom fcitx5-mozc xbindkeys xorg-xinit		
+        sudo pacman -S --noconfirm --needed sway swayidle swaylock foot swaybg  			# 
+        sudo pacman -S --noconfirm --needed xdg-desktop-portal-wlr  
+        sudo pacman -S --noconfirm --needed bemenu-wayland bemenu 
+        sudo pacman -S --noconfirm --needed surfraw neomutt notmuch isync
 fi
 
 #-----------------------Install AUR packages
