@@ -73,7 +73,7 @@ pacman -Syy
 pacman -S --noconfirm grub efibootmgr reflector
 pacman -S --noconfirm networkmanager network-manager-applet dialog wpa_supplicant
 pacman -S --noconfirm base-devel linux-headers pacman-contrib
-pacman -S --noconfirm xdg-user-dirs xdg-utils rustup
+pacman -S --noconfirm xdg-user-dirs xdg-utils
 pacman -S --noconfirm zsh zsh-completions
 pacman -S --noconfirm terminus-font
 pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl
