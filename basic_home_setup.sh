@@ -60,6 +60,7 @@ config config status.showUntrackedFiles no
 #--------------------------
 
 sudo pacman -Syy        				# Update pacman package database
+sudo pacman -S --needed rustup				# Install rust
 rustup default nightly  				# Setup rustup
 
 #-----------------------Install respositories
@@ -84,8 +85,8 @@ else
         # The file is empty.
         sudo pacman -S --needed imv mpv feh sxiv
         sudo pacman -S --needed nodejs python-gpgme 
-        sudo pacman -S --needed neovim zk 
-    	sudo pacman -S --needed xorg xorg-apps alsa-utils
+        sudo pacman -S --needed zk wireplumber pipewire
+    	sudo pacman -S --needed xorg-server xorg-apps alsa-utils python-pillow python-pygments
         sudo pacman -S --needed tmux bat fzf broot fd ripgrep tmuxp 		
         sudo pacman -S --needed picom fcitx5-mozc xbindkeys xorg-xinit		
         sudo pacman -S --needed sway swayidle swaylock foot swaybg  			# 
@@ -109,12 +110,6 @@ else
     	paru -S zramd wlr-randr-git 
         paru -S nerd-fonts-complete ttf-envy-code-r
 fi
-
-#----------------------Start Dropbox and systemd enable
-
-dropbox 
-
-sudo systemctl enable dropbox@$USER
 
 #----------------------zramd systemd start and enable
 
