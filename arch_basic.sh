@@ -189,7 +189,7 @@ echo "${USER}:${USER_PASSWD}" | chpasswd
 #-------------------------------------------------------------------------------
 #                                                                  make user an administrator
 
-echo "$USER all=(all) all" >> "/etc/sudoers.d/$USER"
+echo "$USER ALL=(ALL) ALL" >> "/etc/sudoers.d/$USER"
 
 #-------------------------------------------------------------------------------
 #                                                                  enable systemd services
