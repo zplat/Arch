@@ -35,7 +35,7 @@ git clone git@github.com:zplat/password-store.git ~/.password-store
 
 #-------------------------- Install dotfiles
 
-MYDOTFILES="https://github.com/zplat/Dotfiles.git"
+MYDOTFILES="https://github.com/zplat/MyDotfiles.git"
 
 git clone --bare --recurse-submodules "$MYDOTFILES" "$HOME/.dotfiles"
 
