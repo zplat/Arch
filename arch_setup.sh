@@ -6,8 +6,8 @@
 #                                                                Which partitions 
 
 BOOTDRIVE="/dev/sd" # eg BOOTDRIVE="/dev/sdc1".
-ROOTDRIVE="/dev/sd" # eg BOOTDRIVE="/dev/sdc2".
-HOMEDRIVE="/dev/sd" # eg BOOTDRIVE="/dev/sdc3". Can be same as ROOTDRIVE.
+ROOTDRIVE="/dev/sd" # eg ROOTDRIVE="/dev/sdc2".
+HOMEDRIVE="/dev/sd" # eg HOMEDRIVE="/dev/sdc3". Can be same as ROOTDRIVE.
 
 #-----------------------------------------------------------------------------
 #                                                                Update mirrors
