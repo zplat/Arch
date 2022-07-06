@@ -63,9 +63,9 @@ sudo pacman -Syy        				# Update pacman package database
 sudo pacman -S --needed rustup				# Install rust
 rustup default nightly  				# Setup rustup
 
-#-----------------------Install respositories
+#-----------------------Install repositories
 
-mkdir ~/.local/respositories
+mkdir ~/.local/repositories
 cd ~/.local/repositories/
 git clone https://aur.archlinux.org/paru.git            # Feature packed AUR helper
 git clone https://github.com/zplat/Arch.git             # My Arch Installation
