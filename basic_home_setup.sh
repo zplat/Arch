@@ -33,11 +33,19 @@ eval `ssh-agent` #Start agent
 
 git clone git@github.com:zplat/password-store.git ~/.password-store
 
+#GIT-CREDENTIAL-NETRC='https://raw.githubusercontent.com/git/git/master/contrib/credential/netrc/git-credential-netrc.perl'
+#NETRC-EXEC="$HOME/.local/bin/git-credential-netrc"
+#curl -o "$NETRC-EXEC" "$GIT-CREDENTIAL-NETRC"
+
+git config --global credential.helper "netrc -f /$HOME/.password-store/service.gpg -v -d"
+
+git config --global user.email "5zero.6cool@gmail.com"
+git config --global user.name "zplat"
+
 #-------------------------- Install dotfiles
+DOTFILES="https://github.com/zplat/MyDotfiles.git"
 
-MYDOTFILES="https://github.com/zplat/MyDotfiles.git"
-
-git clone --bare --recurse-submodules "$MYDOTFILES" "$HOME/.dotfiles"
+git clone --bare --recurse-submodules "$DOTFILES" "$HOME/.dotfiles"
 
 function config {
 	/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
@@ -57,6 +65,30 @@ config checkout -f
 config submodule update --init --recursive
 config config status.showUntrackedFiles no
 
+#-------------------------- Install dotfiles
+
+BACKUP_DOTFILES="https://github.com/zplat/.bookmark.git"
+
+git clone --bare --recurse-submodules "$BACKUP_DOTFILES" "$HOME/.secfiles"
+
+function secula {
+	/usr/bin/git --git-dir=$HOME/.secfiles/ --work-tree=$HOME $@
+}
+
+mkdir -p .secula-backup
+secula checkout
+
+if [ $? = 0 ] ; then
+	echo "Checked out config.";
+else 
+	echo "Backing up pro-existing dot files.";
+	secula checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .secula-backup/{}
+fi;
+
+secula checkout -f
+secula submodule update --init --recursive
+secula config status.showUntrackedFiles no
+
 #--------------------------
 
 zsh
@@ -65,54 +97,4 @@ sudo pacman -Syy        				# Update pacman package database
 sudo pacman -S --needed rustup				# Install rust
 rustup default nightly  				# Setup rustup
 
-#-----------------------Install repositories
-
-mkdir ~/.local/repositories
-cd ~/.local/repositories/
-git clone https://aur.archlinux.org/paru.git            # Feature packed AUR helper
-git clone https://github.com/zplat/Arch.git             # My Arch Installation
-git clone https://github.com/neovim/neovim.git		# neovim (see Chris@machine, YTube)
-#git clone https://github.com/sereinity/ofi-pass.git     # Is a password promptor for pass 
-cd paru
-makepkg -si
-cd
-
-#-----------------------Install packages
-
-if [ -s corepkglist.txt ]
-then
-        # The file is not-empty.
-        sudo pacman -S --needed - < ~/.local/repositories/corepkglist.txt
-else
-        # The file is empty.
-        sudo pacman -S --noconfirm --needed imv mpv feh sxiv
-        sudo pacman -S --noconfirm --needed nodejs python-gpgme 
-        sudo pacman -S --noconfirm --needed zk wireplumber pipewire
-    	sudo pacman -S --noconfirm --needed xorg-server xorg-apps alsa-utils python-pillow python-pygments
-        sudo pacman -S --noconfirm --needed tmux bat fzf broot fd ripgrep tmuxp 		
-        sudo pacman -S --noconfirm --needed picom fcitx5-mozc xbindkeys xorg-xinit		
-        sudo pacman -S --noconfirm --needed sway swayidle swaylock foot swaybg  			# 
-        sudo pacman -S --noconfirm --needed xdg-desktop-portal-wlr  
-        sudo pacman -S --noconfirm --needed bemenu-wayland bemenu 
-        sudo pacman -S --noconfirm --needed surfraw neomutt notmuch isync
-fi
-
-#-----------------------Install AUR packages
-
-if [ -s aurpkglist.txt ]
-then
-        # The file is not-empty.
-        paru  -S --needed - < ~/.local/repositories/aurpkglist.txt
-else
-        # The file is empty.
-        paru -S alacritty-git awesome-git river-git
-        paru -S vieb-git buku-git lynx-git
-	paru -S rofi-lbonn-wayland-git
-        paru -S dropbox dropbox-cli 
-    	paru -S zramd wlr-randr-git 
-        paru -S nerd-fonts-complete ttf-envy-code-r
-fi
-
-#----------------------zramd systemd start and enable
-
-sudo systemctl enable --now zramd.service
+reboot
