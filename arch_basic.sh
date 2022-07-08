@@ -65,6 +65,9 @@ echo "root:${ROOT_PASSWD}" | chpasswd
 
 sed -i 's/^#\[multilib\]/\[multilib\]/' /etc/pacman.conf
 sed -i '/^\[multilib\]/ {n;s/^#//}' /etc/pacman.conf
+sed -i '/^#ParallelDownloads/ {n;s//ILoveCandy/}' /etc/pacman.conf
+sed -i 's/^#ParallelDownloads/ParallelDownloads' /etc/pacman.conf
+sed -i 's/^#Color/Color' /etc/pacman.conf
 pacman -Syy
 
 #-------------------------------------------------------------------------------
