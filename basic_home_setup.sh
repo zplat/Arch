@@ -10,9 +10,8 @@ udiskie &		   #access additional partitions
 
 xdg-user-dirs-update       #Create XDG user directories
 
-#-----------------------Setup password manager
 
-sudo pacman -S --needed pass 
+#-----------------------Setup gnupg
 
 DIR="/run/media/phlight/Partition1/configure"
 
@@ -22,6 +21,7 @@ chown -R $(whoami) ~/.local/share/gnupg/
 chmod 600 ~/.local/share/gnupg/*
 chmod 700 ~/.local/share/gnupg
 
+#-----------------------Setup .ssh
 
 cp -pr "$DIR/.ssh" ~/
 
@@ -31,8 +31,13 @@ chmod 600 ~/.ssh/*
 
 eval `ssh-agent` #Start agent
 
+#-----------------------Setup password manager
+
+sudo pacman -S --needed pass 
+
 git clone git@github.com:zplat/password-store.git ~/.password-store
 
+# Backup info for netrc set up with pass for password access.
 #GIT-CREDENTIAL-NETRC='https://raw.githubusercontent.com/git/git/master/contrib/credential/netrc/git-credential-netrc.perl'
 #NETRC-EXEC="$HOME/.local/bin/git-credential-netrc"
 #curl -o "$NETRC-EXEC" "$GIT-CREDENTIAL-NETRC"
