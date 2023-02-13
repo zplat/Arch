@@ -42,10 +42,21 @@ locale-gen
 echo "LANG=en_GB.UTF-8" >>/etc/locale.conf
 
 #-------------------------------------------------------------------------------
-#                                                                 jSet terminal fonts
+#                                                                 Set terminal fonts
 
 echo "FONT=ter-132n" >>/etc/vconsole.conf
 echo "FONT_MAP=8859-1" >>/etc/vconsole.conf
+
+#                                                                Set keyboard layout
+
+echo 'Section "InputClass"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
+echo '        Identifier "system-keyboard"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
+echo '          MatchIsKeyboard "on"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
+echo '          Option "XkbLayout" "cz,us"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
+echo '          Option "XkbModel" "pc104"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
+echo '          Option "XkbVariant" ",dvorak"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
+echo '         Option "XkbOptions" "grp:win_space_toggle"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
+echo 'EndSection' >>/etc/X11/xorg.conf.d/00-keyboard.conf
 
 #-------------------------------------------------------------------------------
 #                                                                  Network
