@@ -13,11 +13,12 @@ xdg-user-dirs-update       #Create XDG user directories
 
 #-----------------------Setup gnupg
 
-DIR="/run/media/phlight/Partition1/configure"
+DIR="/run/media/phlight/Storage2/OnHold"
+DIR2="/run/media/phlight/Storage2/OnHold/share"
 
-cp -pr "$DIR/gnupg" ~/.local/share
+cp -pr "$DIR2/gnupg" ~/.local/share
 
-chown -R $(whoami) ~/.local/share/gnupg/
+chown -R $(whoami) "${HOME}/.local/share/gnupg/"
 chmod 600 ~/.local/share/gnupg/*
 chmod 700 ~/.local/share/gnupg
 

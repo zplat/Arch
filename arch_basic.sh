@@ -39,10 +39,10 @@ locale-gen
 #-------------------------------------------------------------------------------
 #                                                                  Configure locale.conf.
 
-echo "LANG=en_US.UTF-8" >>/etc/locale.conf
+echo "LANG=en_GB.UTF-8" >>/etc/locale.conf
 
 #-------------------------------------------------------------------------------
-#                                                                  Set terminal fonts
+#                                                                 jSet terminal fonts
 
 echo "FONT=ter-132n" >>/etc/vconsole.conf
 echo "FONT_MAP=8859-1" >>/etc/vconsole.conf
