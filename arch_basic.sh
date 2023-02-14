@@ -91,7 +91,7 @@ pacman -S --noconfirm wget luarocks
 pacman -S --noconfirm zsh zsh-completions
 pacman -S --noconfirm terminus-font
 pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl
-pacman -S --noconfirm xf86-video-amdgpu amd-ucode
+pacman -S --noconfirm xf86-video-amdgpu amd-ucode openssh
 
 #-------------------------------------------------------------------------------
 #                                                                  change shell bash to zsh

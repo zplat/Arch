@@ -14,7 +14,7 @@ xdg-user-dirs-update       #Create XDG user directories
 #-----------------------Setup gnupg
 
 DIR="/run/media/phlight/Storage2/OnHold"
-DIR2="/run/media/phlight/Storage2/OnHold/share"
+DIR2="/run/media/phlight/Storage2/OnHold/.local/share"
 
 cp -pr "$DIR2/gnupg" ~/.local/share
 
@@ -95,6 +95,10 @@ secula checkout -f
 secula submodule update --init --recursive
 secula config status.showUntrackedFiles no
 
+#--------------------------
+#
+dot = "https://raw.githubusercontent.com/uplat/Arch/main/program_setup.sh" 
+curl --url "$dot" >> "/home/$USER/dot.sh" 
 #--------------------------
 
 zsh
