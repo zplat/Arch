@@ -217,7 +217,7 @@ systemctl enable reflector.service
 #-------------------------------------------------------------------------------
 #                                                                  os-probe
 
-pacman -S --noconfirm os-prober
+pacman -S --needed --noconfirm os-prober
 echo "grub_disable_os_prober=false" >>/etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 

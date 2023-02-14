@@ -55,7 +55,7 @@ else
 	paru -S alacritty-git awesome-git river-git
 	paru -S vieb-bin-git buku-git lynx-current newsboat-git
 	paru -S rofi-lbonn-wayland-git
-	paru -S dropbox qmk-git
+	paru -S dropbox qmk-git google-chrome microsoft-edge-stable-bin
 	paru -S zramd wlr-randr-git zathura-pdf-mupdf-git
 	paru -S ttf-envy-code-r
 fi
