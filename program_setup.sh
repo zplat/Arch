@@ -16,6 +16,7 @@ git clone https://github.com/zplat/Arch.git         # My Arch Installation
 git clone https://github.com/zplat/neovim.git      # neovim (see Chris@machine, YTube)
 git clone https://github.com/zplat/qmk_firmware.git # cloned version of qmk: ferris9 layout
 cd paru                                             # Install paru
+rustup default stable
 makepkg -si
 cd # Return to home directory
 
@@ -43,7 +44,8 @@ else
 	sudo pacman --needed --noconfirm -S ttf-nerd-fonts-symbols-common
 	sudo pacman --needed --noconfirm -S ttf-nerd-fonts-symbols-1000-em ttf-nerd-fonts-symbols-1000-em-mono
 	sudo pacman --needed --noconfirm -S ttf-nerd-fonts-symbols-2048-em ttf-nerd-fonts-symbols-2048-em-mono
-	sudo pacman --needed --noconfirm -S adobe-source-code-pro-fonts adobe-source-han-sans-jp-fonts adobe-source-han-sans-kr-fontsfi
+	sudo pacman --needed --noconfirm -S adobe-source-code-pro-fonts adobe-source-han-sans-jp-fonts adobe-source-han-sans-kr-fonts
+#fi
 
 #-----------------------Install AUR packages
 
@@ -65,7 +67,6 @@ fi
 sudo systemctl enable --now zramd.service
 
 # nixos
-curl --proto '=https' --tlsv1.2 -sSfL https://nixos.org/nix/install -o nix-install.sh
-./nix-install.sh --daemon
+sudo pacman -S nix
 sudo systemctl enable nix-daemon.service
-usermod -a -G nix-users "$USER"
+sudo gpasswd -a "$USER"  nix-users

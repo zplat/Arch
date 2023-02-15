@@ -89,7 +89,7 @@ pacman -S --noconfirm base-devel linux-headers pacman-contrib
 pacman -S --noconfirm xdg-user-dirs xdg-utils
 pacman -S --noconfirm wget luarocks
 pacman -S --noconfirm zsh zsh-completions
-pacman -S --noconfirm terminus-font
+pacman -S --noconfirm terminus-font npm
 pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl
 pacman -S --noconfirm xf86-video-amdgpu amd-ucode openssh
 
