@@ -81,6 +81,9 @@ rm -rf ~/.config/nvim/.git
 #--------------------------zramd systemd start and enable
 sudo systemctl enable --now zramd.service
 
+#--------------------------zramd systemd start and enable
+systemctl --user enable dropbox
+
 #--------------------------nixos
 sudo pacman -S nix
 sudo systemctl enable nix-daemon.service
