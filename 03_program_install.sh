@@ -9,7 +9,12 @@ git clone https://github.com/zplat/Arch.git         # My Arch Installation
 git clone https://aur.archlinux.org/paru.git        # Feature packed AUR helper
 git clone https://github.com/zplat/neovim.git       # forked (ufo-fold)
 git clone https://github.com/jarun/buku.git         # clone
+git clone https://github.com/newsboat/newsboat.git   # clone
+wget https://github.com/Jelmerro/Vieb/releases/download/9.5.1/vieb-9.5.1.pacman # clone
 git clone https://github.com/zplat/qmk_firmware.git # forked (ferris9)
+
+#-----------------------Install Core Packages
+
 if [ -s corepkglist.txt ]; then
 	# The file is not-empty.
 	sudo pacman -S --needed - <~/.local/repositories/corepkglist.txt
@@ -54,11 +59,6 @@ cd # Return to home directory
 
 #-----------------------Install AUR packages
 
-if [ -s aurpkglist.txt ]; then
-	# The file is not-empty.
-	paru -S --needed - <~/.local/repositories/aurpkglist.txt
-else
-	# The file is empty.
 	## Keyboard layout and Fonts
 	paru -S ttf-envy-code-r qmk-git
 	# Web Browsers and supporting applications
@@ -74,8 +74,6 @@ else
 	# Tools
 	paru -S rofi-lbonn-wayland-git
 	
-fi
-
 #--------------------------Install lazyvim
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm -rf ~/.config/nvim/.git
@@ -87,11 +85,5 @@ sudo systemctl enable --now zramd.service
 sudo pacman -S nix
 sudo systemctl enable nix-daemon.service
 sudo gpasswd -a "$USER"  nix-users
-
-#--------------------------Install dotfiles
-dot = "https://raw.githubusercontent.com/uplat/Arch/main/04_home_setup.sh" 
-curl --url "$dot" >> "/home/$USER/dot.sh" 
-#--------------------------
-
 
 reboot
