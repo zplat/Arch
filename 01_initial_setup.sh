@@ -25,7 +25,7 @@ timedatectl set-ntp true # Update network time protocol.
 #-----------------------------------------------------------------------------
 #                                                               Next script to install Arch.
 
-SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/master/arch_basic.sh"
+SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/master/02_basic_setup.sh"
 
 #-----------------------------------------------------------------------------
 #                                                               Format drives

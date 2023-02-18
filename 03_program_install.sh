@@ -7,13 +7,9 @@ cd ~/.local/repositories/
 
 git clone https://github.com/zplat/Arch.git         # My Arch Installation
 git clone https://aur.archlinux.org/paru.git        # Feature packed AUR helper
-cd paru                                             # Install paru
-rustup default stable
-makepkg -si
-cd # Return to home directory
-
-#-----------------------Install packages
-
+git clone https://github.com/zplat/neovim.git       # forked (ufo-fold)
+git clone https://github.com/jarun/buku.git         # clone
+git clone https://github.com/zplat/qmk_firmware.git # forked (ferris9)
 if [ -s corepkglist.txt ]; then
 	# The file is not-empty.
 	sudo pacman -S --needed - <~/.local/repositories/corepkglist.txt
@@ -50,6 +46,12 @@ else
 	
 fi
 
+#-----------------------Install paru                                                                        # Install paru
+cd paru
+rustup default stable
+makepkg -si
+cd # Return to home directory
+
 #-----------------------Install AUR packages
 
 if [ -s aurpkglist.txt ]; then
@@ -60,7 +62,7 @@ else
 	## Keyboard layout and Fonts
 	paru -S ttf-envy-code-r qmk-git
 	# Web Browsers and supporting applications
-	paru -S google-chrome microsoft-edge-stable-bin vieb-bin-git buku-git lynx-current newsboat-git
+	paru -S google-chrome microsoft-edge-stable-bin lynx-current
 	# pdf Readers
 	paru -S zramd wlr-randr-git zathura-pdf-mupdf-git 
 	#Storage
@@ -74,11 +76,22 @@ else
 	
 fi
 
-#----------------------zramd systemd start and enable
+#--------------------------Install lazyvim
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
 
+#--------------------------zramd systemd start and enable
 sudo systemctl enable --now zramd.service
 
-# nixos
+#--------------------------nixos
 sudo pacman -S nix
 sudo systemctl enable nix-daemon.service
 sudo gpasswd -a "$USER"  nix-users
+
+#--------------------------Install dotfiles
+dot = "https://raw.githubusercontent.com/uplat/Arch/main/04_home_setup.sh" 
+curl --url "$dot" >> "/home/$USER/dot.sh" 
+#--------------------------
+
+
+reboot

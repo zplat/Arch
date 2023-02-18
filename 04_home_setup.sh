@@ -94,17 +94,5 @@ fi;
 secula checkout -f
 secula submodule update --init --recursive
 secula config status.showUntrackedFiles no
-
-#--------------------------
-#
-dot = "https://raw.githubusercontent.com/uplat/Arch/main/program_setup.sh" 
-curl --url "$dot" >> "/home/$USER/dot.sh" 
-#--------------------------
-
-zsh
-
 sudo pacman -Syy        				# Update pacman package database
-sudo pacman -S --needed rustup				# Install rust
-rustup default nightly  				# Setup rustup
-
-reboot
+nix-shell -p emanote
