@@ -95,4 +95,6 @@ secula checkout -f
 secula submodule update --init --recursive
 secula config status.showUntrackedFiles no
 sudo pacman -Syy        				# Update pacman package database
+
+#Install emanote
 nix-shell -p emanote
