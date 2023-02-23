@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-SEARX=~/.local/repositories/
+SEARX="$HOME/.local/repositories/"
 cd $SEARX
 
 # clone searx repository
@@ -21,12 +21,11 @@ sed -i -e "s/ultrasecretkey/$(openssl rand -hex 16)/g" "$SEARX/settings.yml"
 sed -i -e "s/{instance_name}/br5/g" "$SEARX/settings.yml"
 
 # Install supporting programs
-sudo -H apt-get install -y \
-    python3-dev python3-babel python3-venv \
-    uwsgi uwsgi-plugin-python3 \
-    git build-essential libxslt-dev zlib1g-dev libffi-dev libssl-dev \
+ sudo -H pacman -S --needed --noconfirm \
+    python python-pip python-lxml python-babel \
+    uwsgi uwsgi-plugin-python \
+    git base-devel libxml2 \
     shellcheck
-    #
 # Install uwsgi
 pip install uwsgi
 
