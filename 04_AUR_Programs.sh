@@ -15,8 +15,6 @@ rustup default stable
 makepkg -si
 cd # Return to home directory
 
-udiskie &		   #access additional partitions
-
 xdg-user-dirs-update       #Create XDG user directories
 
 
@@ -24,19 +22,22 @@ xdg-user-dirs-update       #Create XDG user directories
 
 	## Keyboard layout and Fonts
 	paru -S ttf-envy-code-r qmk-git
+	paru -S ttf-google-fonts-git
 	# Web Browsers and supporting applications
-	paru -S google-chrome microsoft-edge-stable-bin lynx-current
+	paru -S lynx-current
+	paru -S google-chrome
+	paru -S  microsoft-edge-stable-bin
 	# pdf Readers
 	paru -S zathura-pdf-mupdf-git 
 	# System tools
-	paru -S zramd wlr-randr-git 
+	paru -S zramd
 	#Storage
 	paru -S dropbox 
-	# X11 and Wayland
-	paru -S wlr-randr-git zramd 
+	# Wayland
+	paru -S wlr-randr-git
 	# Window Managers
-	paru -S awesome-git river-git
+	paru -S awesome-git
 	# Tools
-	paru -S rofi-lbonn-wayland-git
+	paru -S rofi-lbonn-wayland-git pass-tessen tessen
 	
 

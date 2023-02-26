@@ -7,7 +7,7 @@
 	sudo pacman --needed --noconfirm -S fcitx5-mozc fcitx5-qt fcitx5-mozc fcitx5-qt adobe-source-code-pro-fonts
 	sudo pacman --needed --noconfirm -S adobe-source-han-sans-jp-fonts adobe-source-han-sans-kr-fonts
 	# Web Browsers and supporting applications
-	sudo pacman --needed --noconfirm -S nyxt surfraw pass 
+	sudo pacman --needed --noconfirm -S nyxt surfraw pass fuzzel
 	# Email
 	sudo pacman --needed --noconfirm -S notmuch isync msmtp msmtp-mta neomutt
 	# Image Viewers and Graphics
