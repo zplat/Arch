@@ -16,7 +16,7 @@ function config {
 }
 
 mkdir -p "$HOME/.config-backup"
-c"onfig checkout
+config checkout
 
 if [ $? = 0 ] ; then
 	echo "Checked out config.";

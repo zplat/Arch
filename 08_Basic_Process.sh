@@ -11,12 +11,10 @@ git clone https://github.com/newsboat/newsboat.git   # clone
 git clone https://github.com/zplat/qmk_firmware.git # forked (ferris9)
 
 git clone https://github.com/kovidgoyal/kitty       # forked 
-cd kitty
-make
 
 #--------------------------Install lazyvim
-git clone https://github.com/LazyVim/starter ~/.config/nvim
-rm -rf ~/.config/nvim/.git
+#git clone https://github.com/LazyVim/starter ~/.config/nvim
+#rm -rf ~/.config/nvim/.git
 
 #--------------------------zramd systemd start and enable
 sudo systemctl enable --now zramd.service

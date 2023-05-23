@@ -1,5 +1,7 @@
 #!/usr/bin/env bash 
 
+sudo pacman --needed --noconfirm -S libevdev libxkbcommon mesa pixman wayland wlroots xorg-wayland polkit scdoc wayland-protocols zig 
+
 cd "$HOME/.local/repositories"
 
 git clone https://github.com/riverwm/river.git

@@ -87,11 +87,11 @@ pacman -S --noconfirm grub efibootmgr reflector
 pacman -S --noconfirm networkmanager wpa_supplicant
 pacman -S --noconfirm base-devel linux-headers pacman-contrib
 pacman -S --noconfirm xdg-user-dirs xdg-utils
-pacman -S --noconfirm wget luarocks
+pacman -S --noconfirm wget luarocks npm
 pacman -S --noconfirm zsh zsh-completions
-pacman -S --noconfirm terminus-font npm
-pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl
-pacman -S --noconfirm xf86-video-amdgpu amd-ucode openssh
+pacman -S --noconfirm terminus-font 
+pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl openssh
+pacman -S --noconfirm xf86-video-amdgpu amd-ucode 
 
 #-------------------------------------------------------------------------------
 #                                                                  change shell bash to zsh
@@ -231,4 +231,4 @@ curl --url "$SETUP_URL" >>"/home/$USER/shell.sh"
 printf "\e[1;32mdone! type exit, umount -a and reboot.\e[0m"
 
 #-------------------------------------------------------------------------------
-shred -uvz shell.sh
+shred -uvz shell.

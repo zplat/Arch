@@ -6,8 +6,11 @@
 #
 ############################################################
 
-git config --global user.email "5zero.6cool@gmail.com"
-git config --global user.name "zplat"
+USEREMAIL="5zero.6cool@gmail.com"
+USERNAME="zplat"
+
+git config --global user.email "$USEREMAIL"
+git config --global user.name "$USERNAME"
 
 #-----------------------Setup gnupg
 
