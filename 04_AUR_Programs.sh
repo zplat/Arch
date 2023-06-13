@@ -1,11 +1,17 @@
 #!/usr/bin/env sh
 
-#-----------------------Install repositories
-
 udiskie & #access additional partitions
 
-# mkdir ~/.local/repositories
-cd ~/.local/repositories/
+LOCAL_RESPOSITORY="/home/$USER/.local/repositories"
+
+xdg-user-dirs-update #Create XDG user directories
+
+#-----------------------Install repositories
+
+mkdir -p "$LOCAL_RESPOSITORY"
+cd "$LOCAL_RESPOSITORY"
+
+git clone https://github.com/zplat/Arch.git  # My Arch Installation
 
 git clone https://aur.archlinux.org/paru.git # Feature packed AUR helper
 
@@ -13,9 +19,10 @@ git clone https://aur.archlinux.org/paru.git # Feature packed AUR helper
 cd paru # Install paru
 rustup default nightly
 makepkg -si
+
 cd # Return to home directory
 
-xdg-user-dirs-update #Create XDG user directories
+
 
 #-----------------------Install AUR packages
 
