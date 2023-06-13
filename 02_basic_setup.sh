@@ -16,6 +16,7 @@ USER_PASSWD=''
 
 SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/main/basic_home_setup.sh"
 LOCAL_RESPOSITORY="/home/$USER/.local/repositories"
+ARCH_RESPOSITORY="/home/$USER/.local/repositories/Arch"
 
 #-------------------------------------------------------------------------------
 #                                                                  set time
@@ -174,7 +175,7 @@ Type = Package
 Target = *
 [Action]
 When = PostTransaction
-Exec = /bin/sh -c '/usr/bin/pacman -Qqn > /home/$USER/$LOCAL_RESPOSITORY/corepkglist.txt'
+Exec = /bin/sh -c '/usr/bin/pacman -Qqn > $ARCH_RESPOSITORY/corepkglist.txt'
 " >/usr/share/libalpm/hooks/pkgCore.hook
 
 #------------------------list of AUR programs
@@ -186,7 +187,7 @@ Type = Package
 Target = *
 [Action]
 When = PostTransaction
-Exec = /bin/sh -c '/usr/bin/pacman -Qqm > /home/$USER/$LOCAL_RESPOSITORY/aurpkglist.txt'
+Exec = /bin/sh -c '/usr/bin/pacman -Qqm > $ARCH_RESPOSITORY/aurpkglist.txt'
 " >/usr/share/libalpm/hooks/pkgAUR.hook
 
 #-------------------------------------------------------------------------------
