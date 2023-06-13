@@ -15,7 +15,7 @@ USER=''
 USER_PASSWD=''
 
 SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/main/basic_home_setup.sh"
-LOCAL_RESPOSITORY="/home/$USER/.local/repositories/Arch"
+LOCAL_RESPOSITORY="/home/$USER/.local/repositories"
 
 #-------------------------------------------------------------------------------
 #                                                                  set time
