@@ -1,4 +1,4 @@
-#!/usr/bin/env sh 
+#!/usr/bin/env sh
 
 ############################################################
 #
@@ -6,7 +6,7 @@
 #
 ############################################################
 
-USEREMAIL="5zero.6cool@gmail.com"
+USEREMAIL=""
 USERNAME="zplat"
 
 git config --global user.email "$USEREMAIL"
@@ -31,7 +31,7 @@ chown -R $(whoami) ~/.ssh
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
 
-eval `ssh-agent` #Start agent
+eval $(ssh-agent) #Start agent
 
 #-----------------------Setup password manager
 
@@ -43,4 +43,3 @@ git clone git@github.com:zplat/password-store.git ~/.password-store
 #curl -o "$NETRC-EXEC" "$GIT-CREDENTIAL-NETRC"
 
 git config --global credential.helper "netrc -f /$HOME/.password-store/service.gpg -v -d"
-

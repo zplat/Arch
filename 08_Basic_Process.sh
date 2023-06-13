@@ -4,13 +4,12 @@
 
 cd ~/.local/repositories/
 
-git clone https://github.com/zplat/Arch.git         # My Arch Installation
 git clone https://github.com/zplat/neovim.git       # forked (ufo-fold)
 git clone https://github.com/jarun/buku.git         # clone
-git clone https://github.com/newsboat/newsboat.git   # clone
+git clone https://github.com/newsboat/newsboat.git  # clone
 git clone https://github.com/zplat/qmk_firmware.git # forked (ferris9)
 
-git clone https://github.com/kovidgoyal/kitty       # forked 
+git clone https://github.com/kovidgoyal/kitty # forked
 
 #--------------------------Install lazyvim
 #git clone https://github.com/LazyVim/starter ~/.config/nvim
@@ -24,7 +23,7 @@ sudo systemctl enable --now zramd.service
 
 #--------------------------nixos
 sudo systemctl enable --now nix-daemon.service
-sudo gpasswd -a "$USER"  nix-users
+sudo gpasswd -a "$USER" nix-users
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 nix-channel --update
 #Install emanote

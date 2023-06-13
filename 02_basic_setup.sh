@@ -89,9 +89,20 @@ pacman -S --noconfirm base-devel linux-headers pacman-contrib
 pacman -S --noconfirm xdg-user-dirs xdg-utils
 pacman -S --noconfirm wget luarocks npm
 pacman -S --noconfirm zsh zsh-completions
-pacman -S --noconfirm terminus-font 
+pacman -S --noconfirm terminus-font
 pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl openssh
-pacman -S --noconfirm xf86-video-amdgpu amd-ucode 
+pacman -S --noconfirm xf86-video-amdgpu amd-ucode
+
+#-------------------------------------------------------------------------------
+#                                                                  change shell bash to zsh
+#-----------------------Install Arch repository
+
+udiskie & #access additional partitions
+
+mkdir ~/.local/repositories
+cd ~/.local/repositories/
+
+git clone https://github.com/zplat/Arch.git # My Arch Installation
 
 #-------------------------------------------------------------------------------
 #                                                                  change shell bash to zsh
