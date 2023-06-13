@@ -84,7 +84,7 @@ pacman -Syy
 #                                                                  install packages
 
 pacman -S --noconfirm grub efibootmgr reflector
-pacman -S --noconfirm networkmanager wpa_supplicant
+pacman -S --noconfirm networkmanager wpa_supplicant bluez bluez-utils
 pacman -S --noconfirm base-devel linux-headers pacman-contrib
 pacman -S --noconfirm xdg-user-dirs xdg-utils
 pacman -S --noconfirm wget luarocks npm
@@ -223,6 +223,7 @@ systemctl enable reflector.timer
 systemctl enable fstrim.timer
 systemctl enable paccache.timer
 systemctl enable reflector.service
+systemctl enable bluetooth.service
 
 #-------------------------------------------------------------------------------
 #                                                                  os-probe
@@ -234,7 +235,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 #-------------------------------------------------------------------------------
 #                                                                  Install post install script.
 
-curl --url "$SETUP_URL" >>"/home/$USER/shell.sh"
+#curl --url "$SETUP_URL" >>"/home/$USER/shell.sh"
 
 #-------------------------------------------------------------------------------
 #                                                                  all done
