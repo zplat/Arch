@@ -14,7 +14,7 @@ ROOT_PASSWD=''
 USER=''
 USER_PASSWD=''
 
-SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/main/basic_home_setup.sh"
+SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/main/04_AUR_Programs.sh"
 LOCAL_RESPOSITORY="/home/$USER/.local/repositories"
 ARCH_RESPOSITORY="/home/$USER/.local/repositories/Arch"
 
@@ -93,16 +93,6 @@ pacman -S --noconfirm zsh zsh-completions
 pacman -S --noconfirm terminus-font
 pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl openssh
 pacman -S --noconfirm xf86-video-amdgpu amd-ucode
-
-#-------------------------------------------------------------------------------
-#                                                                  Install Arch repository
-
-#udiskie & #access additional partitions
-
-mkdir -p "$LOCAL_RESPOSITORY"
-cd "$LOCAL_RESPOSITORY"
-
-git clone https://github.com/zplat/Arch.git # My Arch Installation
 
 #-------------------------------------------------------------------------------
 #                                                                  change shell bash to zsh
@@ -243,4 +233,4 @@ grub-mkconfig -o /boot/grub/grub.cfg
 printf "\e[1;32mdone! type exit, umount -a and reboot.\e[0m"
 
 #-------------------------------------------------------------------------------
-shred -uvz shell.
+shred -uvz shell.sh
