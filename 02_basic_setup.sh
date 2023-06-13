@@ -15,7 +15,7 @@ USER=''
 USER_PASSWD=''
 
 SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/main/basic_home_setup.sh"
-LOCAL_RESPOSITORY=".local/repositories/Arch"
+LOCAL_RESPOSITORY="/home/$USER/.local/repositories/Arch"
 
 #-------------------------------------------------------------------------------
 #                                                                  set time
@@ -94,13 +94,12 @@ pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl openssh
 pacman -S --noconfirm xf86-video-amdgpu amd-ucode
 
 #-------------------------------------------------------------------------------
-#                                                                  change shell bash to zsh
-#-----------------------Install Arch repository
+#                                                                  Install Arch repository
 
-udiskie & #access additional partitions
+#udiskie & #access additional partitions
 
-mkdir ~/.local/repositories
-cd ~/.local/repositories/
+mkdir -p "$LOCAL_RESPOSITORY"
+cd "$LOCAL_RESPOSITORY"
 
 git clone https://github.com/zplat/Arch.git # My Arch Installation
 
