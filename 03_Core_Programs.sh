@@ -21,7 +21,7 @@
 	# Audio
 	sudo pacman --needed --noconfirm -S wireplumber pipewire alsa-utils 
 	# X11 and Wayland
-	sudo pacman --needed --noconfirm -S xbindkeys xdg-desktop-portal-wlr nix qt5-wayland
+	sudo pacman --needed --noconfirm -S xbindkeys xdg-desktop-portal-wlr nix qt5-wayland xorg-xwayland
 	#sudo pacman --needed --noconfirm -S xorg-server xorg-apps xorg-xinit picom 
 	# Terminals
 	sudo pacman --needed --noconfirm -S foot alacritty
