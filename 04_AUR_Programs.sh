@@ -4,8 +4,6 @@ udiskie & #access additional partitions
 
 LOCAL_RESPOSITORY="/home/$USER/.local/repositories"
 
-xdg-user-dirs-update #Create XDG user directories
-
 #-----------------------Install repositories
 
 mkdir -p "$LOCAL_RESPOSITORY"
