@@ -14,8 +14,9 @@ ROOT_PASSWD=''
 USER=''
 USER_PASSWD=''
 
-SETUP4_URL="https://raw.githubusercontent.com/zplat/Arch/main/04_AUR_Programs.sh"
-SETUP3_URL="https://raw.githubusercontent.com/zplat/Arch/main/03_Core_Programs.sh"
+SETUP5_URL="https://raw.githubusercontent.com/zplat/Arch/main/04_AUR_Programs.sh"
+SETUP3_URL="https://raw.githubusercontent.com/zplat/Arch/main/06_mydotfile.sh"
+SETUP4_URL="https://raw.githubusercontent.com/zplat/Arch/main/05_Secure.sh"
 LOCAL_RESPOSITORY="/home/$USER/.local/repositories"
 ARCH_RESPOSITORY="/home/$USER/.local/repositories/Arch"
 
@@ -230,6 +231,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 curl --url "$SETUP3_URL" >>"/home/$USER/shell3.sh"
 curl --url "$SETUP4_URL" >>"/home/$USER/shell4.sh"
+curl --url "$SETUP5_URL" >>"/home/$USER/shell5.sh"
 
 #-------------------------------------------------------------------------------
 #                                                                  all done
