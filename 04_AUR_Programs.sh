@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-udiskie & #access additional partitions
-
 LOCAL_RESPOSITORY="/home/$USER/.local/repositories"
 
 #-----------------------Install repositories
