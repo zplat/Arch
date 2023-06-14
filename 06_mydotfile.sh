@@ -6,6 +6,9 @@
 #
 ############################################################
 
+udiskie & #access additional partitions
+
+
 #-------------------------- Install dotfiles
 DOTFILES="https://github.com/zplat/MyDotfiles.git"
 
