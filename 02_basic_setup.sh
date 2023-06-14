@@ -85,15 +85,16 @@ pacman -Syy
 #-------------------------------------------------------------------------------
 #                                                                  install packages
 
-pacman -S --noconfirm grub efibootmgr reflector
-pacman -S --noconfirm networkmanager wpa_supplicant bluez bluez-utils
-pacman -S --noconfirm base-devel linux-headers pacman-contrib
-pacman -S --noconfirm xdg-user-dirs xdg-utils
-pacman -S --noconfirm wget luarocks npm
-pacman -S --noconfirm zsh zsh-completions
-pacman -S --noconfirm terminus-font
-pacman -S --noconfirm dosfstools os-prober udiskie ntfs-3g openssl openssh
-pacman -S --noconfirm xf86-video-amdgpu amd-ucode
+pacman --needed --noconfirm -S  grub efibootmgr reflector
+pacman --needed --noconfirm -S  networkmanager wpa_supplicant bluez bluez-utils
+pacman --needed --noconfirm -S  base-devel linux-headers pacman-contrib
+pacman --needed --noconfirm -S  xdg-user-dirs xdg-utils
+pacman --needed --noconfirm -S  wget luarocks npm
+pacman --needed --noconfirm -S  zsh zsh-completions
+pacman --needed --noconfirm -S  terminus-font
+pacman --needed --noconfirm -S  dosfstools os-prober udiskie ntfs-3g openssl openssh
+pacman --needed --noconfirm -S  xf86-video-amdgpu amd-ucode
+pacman --needed --noconfirm -S  gnupg rustup gawk 
 
 #-------------------------------------------------------------------------------
 #                                                                  change shell bash to zsh
