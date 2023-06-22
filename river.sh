@@ -1,6 +1,6 @@
 #!/usr/bin/env bash 
 
-sudo pacman --needed --noconfirm -S libevdev libxkbcommon mesa pixman wayland wlroots xorg-wayland polkit scdoc wayland-protocols zig 
+sudo pacman --needed --noconfirm -S libevdev libxkbcommon mesa pixman wayland wlroots polkit scdoc wayland-protocols zig xorg-xwayland
 
 cd "$HOME/.local/repositories"
 
