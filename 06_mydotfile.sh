@@ -6,7 +6,7 @@
 #
 ############################################################
 
-udiskie & #access additional partitions
+#udiskie & #access additional partitions
 
 
 #-------------------------- Install dotfiles

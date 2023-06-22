@@ -6,7 +6,7 @@
 #
 ############################################################
 
-USEREMAIL=""
+USEREMAIL="5zero.6cool@gmail.com"
 USERNAME="zplat"
 
 git config --global user.email "$USEREMAIL"
@@ -32,6 +32,7 @@ chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
 
 eval $(ssh-agent) #Start agent
+ssh-add "$HOME/.ssh/id_ed25519"
 
 #-----------------------Setup password manager
 
