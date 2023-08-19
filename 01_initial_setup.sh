@@ -4,12 +4,12 @@
 
 ROOT_DRIVE="sd" # eg ROOT_DRIVE="sdc2".
 BOOT_DRIVE="sd" # eg BOOT_DRIVE="sdc1".
-HOME_DRIVE="sd" # eg HOME_DRIVE="sdc3". Can be same as ROOTDRIVE.
+#HOME_DRIVE="sd" # eg HOME_DRIVE="sdc3".
 
 #---------------------- DO NOT EDIT
-HOMEDRIVE="/dev/$HOME_DRIVE" # DO NOT EDIT
 BOOTDRIVE="/dev/$BOOT_DRIVE" # DO NOT EDIT
 ROOTDRIVE="/dev/$ROOT_DRIVE" # DO NOT EDIT
+#HOMEDRIVE="/dev/$HOME_DRIVE" # DO NOT EDIT
 
 #-----------------------------------------------------------------------------
 #                                                                Update mirrors
@@ -33,7 +33,7 @@ SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/master/02_basic_setup.sh
 mkfs.fat -F32 "$BOOTDRIVE" #Format Boot partition.
 fatlabel "$BOOTDRIVE" BOOT # To label the boot drive.
 mkfs.btrfs -f "$ROOTDRIVE" #Format Root partition. Use -f to force overwrite.
-mkfs.btrfs -f "$HOMEDRIVE" #Format Home partition. Don't if already setup.
+#mkfs.btrfs -f "$HOMEDRIVE" #Format Home partition. Don't if already setup.
 
 #-----------------------------------------------------------------------------
 #                                                               Mount drives
@@ -52,7 +52,7 @@ umount /mnt # Unmount the drive to mount the subvolumes.
 #-----------------------------------------------------------------------------
 #                                                               Mount subvolumes
 
-SSD_OPTIONS="noatime,compress=zstd,space_cache=v2,discard=async,subvol"
+SSD_OPTIONS="noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol"
 
 mount -o "$SSD_OPTIONS"=@ "$ROOTDRIVE" /mnt
 
