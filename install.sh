@@ -27,11 +27,14 @@ Install_Basic ()
  sudo pacman --needed --noconfirm -S rustup gawk 
 }
 
+Install_Basic 
+
 #-----------------------Install Dotfiles
 function config {
 	/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
-Config_files ()
+
+Install_dotfiles ()
 {
 mkdir -p "$HOME/.config-backup"
 config checkout
@@ -47,6 +50,8 @@ config checkout -f
 config submodule update --init --recursive
 config config status.showUntrackedFiles no
 }
+
+Install_dotfiles 
 
 #-----------------------Install AUR packages
 Install_AUR ()
@@ -82,6 +87,8 @@ git clone git@github.com:zplat/password-store.git ~/.password-store
 git config --global credential.helper "netrc -f $HOME/.password-store/service.gpg -v -d"
 }
 
+Install_AUR 
+
 #-----------------------Install More Packages
 Install_Core ()
 {
@@ -102,18 +109,21 @@ sudo pacman --needed --noconfirm -S zk
 sudo pacman --needed --noconfirm -S wireplumber pipewire alsa-utils 
 # X11 and Wayland
 sudo pacman --needed --noconfirm -S xbindkeys xdg-desktop-portal-wlr qt5-wayland xorg-xwayland
-sudo pacman --needed --noconfirm -S xorg-server xorg-apps xorg-xinit picom 
+#sudo pacman --needed --noconfirm -S xorg-server xorg-apps xorg-xinit picom 
 # Terminals
 sudo pacman --needed --noconfirm -S foot alacritty
 # Window Managers
 sudo pacman --needed --noconfirm -S sway swayidle swaylock swaybg
 # Tools
-sudo pacman --needed --noconfirm -S bemenu-wayland bemenu cmake rofi-pass tmux bat fzf broot fd ripgrep tmuxp xclip
+sudo pacman --needed --noconfirm -S cmake rofi-pass tmux bat fzf broot fd ripgrep tmuxp xclip
+#sudo pacman --needed --noconfirm -S bemenu-wayland bemenu 
 # Programming
 sudo pacman --needed --noconfirm -S r tk rustup gawk 
 # Required 
 sudo pacman --needed --noconfirm -S python-pillow stfl python-pygments python-gpgme python-pip nodejs libffi ninja librsync python-pyserial
 }
+
+Install_Core 
 
 #-----------------------Install repositories
 Clone_Repositories ()
@@ -128,6 +138,8 @@ git clone https://github.com/qmk/qmk_firmware.git   # forked (ferris9)
 git clone https://github.com/kovidgoyal/kitty       # forked
 }
 
+# Clone_Repositories 
+
 #--------------------------nixos
 Setup_Nixos ()
 {
@@ -139,12 +151,16 @@ nix-channel --update
 nix-env -iA nixpkgs.emanote
 }
 
+Setup_Nixos 
+
 #--------------------------zramd systemd start and enable
 Install_Swap ()
 {
 paru -S zramd
 sudo systemctl enable --now zramd.service
 }
+
+Install_Swap 
 
 #--------------------------dropbox systemd start and enable
 #systemctl --user enable dropbox
