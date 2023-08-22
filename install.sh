@@ -15,6 +15,11 @@ LOCAL_RESPOSITORY="/home/$USER/.local/repositories"
 #Git user and email
 USEREMAIL=""
 USERNAME="zplat"
+DOTFILES="git@github.com:zplat/MyDotfiles.git"
+BACKUP_DOTFILES="git@github.com:zplat/.bookmark.git"
+
+# external folder for additional setup
+STORAGE="STORE"
 
 #-----------------------Install Packages
 Install_Basic ()
@@ -23,19 +28,20 @@ Install_Basic ()
  sudo pacman --needed --noconfirm -S pass 
  sudo pacman --needed --noconfirm -S xbindkeys xdg-desktop-portal-wlr nix qt5-wayland xorg-xwayland
  sudo pacman --needed --noconfirm -S foot alacritty
- sudo pacman --needed --noconfirm -S cmake gnupg 
- sudo pacman --needed --noconfirm -S rustup gawk 
 }
 
-Install_Basic 
+ 
 
 #-----------------------Install Dotfiles
+
+
 function config {
 	/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
 
-Install_dotfiles ()
+Install_mydotfiles ()
 {
+git clone --bare --recurse-submodules "$DOTFILES" "$HOME/.dotfiles"
 mkdir -p "$HOME/.config-backup"
 config checkout
 
@@ -51,21 +57,63 @@ config submodule update --init --recursive
 config config status.showUntrackedFiles no
 }
 
-Install_dotfiles 
+
+
+
+Install_dotfiles ()
+{
+git clone --bare --recurse-submodules "$BACKUP_DOTFILES" "$HOME/.secfiles"
+
+function secula {
+	/usr/bin/git --git-dir=$HOME/.secfiles/ --work-tree=$HOME $@
+}
+
+mkdir -p "$HOME/.secula-backup"
+secula checkout
+
+if [ $? = 0 ] ; then
+	echo "Checked out config.";
+else 
+	echo "Backing up pro-existing dot files.";
+	secula checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .secula-backup/{}
+fi;
+
+secula checkout -f
+secula submodule update --init --recursive
+secula config status.showUntrackedFiles no
+}
+
+#-----------------------Install repositories
+Install_Repositories ()
+{
+mkdir -p "$LOCAL_RESPOSITORY"
+cd "$LOCAL_RESPOSITORY"
+
+git clone git@github.com:zplat/Arch.git  # My Arch Installation
+
+git clone https://aur.archlinux.org/paru.git # Feature packed AUR helper
+
+#-----------------------Install paru
+cd paru # Install paru
+rustup default nightly
+makepkg -si
+
+cd # Return to home directory
+}
 
 #-----------------------Install AUR packages
 Install_AUR ()
 {
 ## Keyboard layout and Fonts
 paru -S ttf-envy-code-r 
-paru -S ttf-google-fonts-git
+#paru -S ttf-google-fonts-git
 # Web Browsers and supporting applications
 paru -S lynx-current
 paru -S google-chrome
 # pdf Readers
 paru -S zathura-pdf-mupdf-git
 # System tools
-paru -S qmk-git
+#paru -S qmk-git
 paru -S netrc
 #Storage
 paru -S dropbox
@@ -74,7 +122,34 @@ paru -S wlr-randr-git
 # Tools
 paru -S rofi-lbonn-wayland-git pass-tessen tessen
 }
-#-----------------------Setup password manager
+
+
+#-----------------------Setup ssh, gnugp, password manager
+Setup_ssh () 
+{
+#-----------------------Setup gnupg
+
+DIR="/run/media/phlight/$STORAGE/OnHold"
+DIR2="/run/media/phlight/$STORAGE/OnHold/.local/share"
+
+cp -pr "$DIR2/gnupg" ~/.local/share
+
+chown -R $(whoami) "${HOME}/.local/share/gnupg/"
+chmod 600 ~/.local/share/gnupg/*
+chmod 700 ~/.local/share/gnupg
+
+#-----------------------Setup .ssh
+
+cp -pr "$DIR/.ssh" ~/
+
+chown -R $(whoami) ~/.ssh
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/*
+
+eval $(ssh-agent) #Start agent
+ssh-add "$HOME/.ssh/id_ed25519"
+}
+
 Install_Pass ()
 {
 git clone git@github.com:zplat/password-store.git ~/.password-store
@@ -87,7 +162,7 @@ git clone git@github.com:zplat/password-store.git ~/.password-store
 git config --global credential.helper "netrc -f $HOME/.password-store/service.gpg -v -d"
 }
 
-Install_AUR 
+
 
 #-----------------------Install More Packages
 Install_Core ()
@@ -118,12 +193,12 @@ sudo pacman --needed --noconfirm -S sway swayidle swaylock swaybg
 sudo pacman --needed --noconfirm -S cmake rofi-pass tmux bat fzf broot fd ripgrep tmuxp xclip
 #sudo pacman --needed --noconfirm -S bemenu-wayland bemenu 
 # Programming
-sudo pacman --needed --noconfirm -S r tk rustup gawk 
+sudo pacman --needed --noconfirm -S r tk  
 # Required 
 sudo pacman --needed --noconfirm -S python-pillow stfl python-pygments python-gpgme python-pip nodejs libffi ninja librsync python-pyserial
 }
 
-Install_Core 
+ 
 
 #-----------------------Install repositories
 Clone_Repositories ()
@@ -138,7 +213,7 @@ git clone https://github.com/qmk/qmk_firmware.git   # forked (ferris9)
 git clone https://github.com/kovidgoyal/kitty       # forked
 }
 
-# Clone_Repositories 
+ 
 
 #--------------------------nixos
 Setup_Nixos ()
@@ -151,7 +226,7 @@ nix-channel --update
 nix-env -iA nixpkgs.emanote
 }
 
-Setup_Nixos 
+
 
 #--------------------------zramd systemd start and enable
 Install_Swap ()
@@ -160,9 +235,30 @@ paru -S zramd
 sudo systemctl enable --now zramd.service
 }
 
+#------------------------ Process order
+
+#------ Install arch packages
+Install_Basic
+#------ Setup ssh & gnugp
+Setup_ssh
+#------ Install arch setup repository & setup paru
+Install_Repositories
+#------ AUR packages
+Install_AUR
+#------ Install MyDotfiles
+Install_mydotfiles 
+#------ Dotfiles
+Install_dotfiles 
+#------ Install Password Manager
+Install_Pass
+#------ Additional arch packages
+Install_Core
+#------ Download cloned Repositories
+# Clone_Repositories
+#------ Setup Nixos
+Setup_Nixos 
+#------ Install Zram Swap
 Install_Swap 
 
-#--------------------------dropbox systemd start and enable
-#systemctl --user enable dropbox
 
 
