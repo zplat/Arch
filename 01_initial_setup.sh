@@ -2,14 +2,15 @@
 
 #                           Arch install with btrfs.
 
-ROOT_DRIVE="sd" # eg ROOT_DRIVE="sdc2".
+
 BOOT_DRIVE="sd" # eg BOOT_DRIVE="sdc1".
-#HOME_DRIVE="sd" # eg HOME_DRIVE="sdc3".
+ROOT_DRIVE="sd" # eg ROOT_DRIVE="sdc2"
+
 
 #---------------------- DO NOT EDIT
 BOOTDRIVE="/dev/$BOOT_DRIVE" # DO NOT EDIT
 ROOTDRIVE="/dev/$ROOT_DRIVE" # DO NOT EDIT
-#HOMEDRIVE="/dev/$HOME_DRIVE" # DO NOT EDIT
+
 
 #-----------------------------------------------------------------------------
 #                                                                Update mirrors
