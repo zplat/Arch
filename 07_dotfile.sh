@@ -8,7 +8,7 @@
 
 #-------------------------- Install dotfiles
 
-BACKUP_DOTFILES="https://github.com/zplat/.bookmark.git"
+BACKUP_DOTFILES="git@github.com:zplat/.bookmark.git"
 
 git clone --bare --recurse-submodules "$BACKUP_DOTFILES" "$HOME/.secfiles"
 
