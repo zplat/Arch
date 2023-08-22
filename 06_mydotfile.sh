@@ -10,7 +10,7 @@
 
 
 #-------------------------- Install dotfiles
-DOTFILES="https://github.com/zplat/MyDotfiles.git"
+DOTFILES="git@github.com:zplat/MyDotfiles.git"
 
 git clone --bare --recurse-submodules "$DOTFILES" "$HOME/.dotfiles"
 
