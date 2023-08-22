@@ -8,14 +8,15 @@
 
 USEREMAIL="5zero.6cool@gmail.com"
 USERNAME="zplat"
+STORAGE="STORE"
 
 git config --global user.email "$USEREMAIL"
 git config --global user.name "$USERNAME"
 
 #-----------------------Setup gnupg
 
-DIR="/run/media/phlight/Storage2/OnHold"
-DIR2="/run/media/phlight/Storage2/OnHold/.local/share"
+DIR="/run/media/phlight/$STORAGE/OnHold"
+DIR2="/run/media/phlight/$STORAGE/OnHold/.local/share"
 
 cp -pr "$DIR2/gnupg" ~/.local/share
 
