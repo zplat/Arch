@@ -22,15 +22,15 @@ ARCH_RESPOSITORY="/home/$USER/.local/repositories/Arch"
 #                                                                  set time
 
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
-hwclock --systohc --localtime
+hwclock --systohc
 
 #-------------------------------------------------------------------------------
 #                                                                  set language locale.
 
-echo "en_GB.UTF-8 UTF-8" >>/etc/locale.gen
-echo "en_US.UTF-8 UTF-8" >>/etc/locale.gen
-echo "ja_JP.UTF-8 UTF-8" >>/etc/locale.gen
-echo "ko_KR.UTF-8 UTF-8" >>/etc/locale.gen #Well over the top!
+echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "ja_JP.UTF-8 UTF-8" >> /etc/locale.gen
+echo "ko_KR.UTF-8 UTF-8" >> /etc/locale.gen #Well over the top!
 
 #-------------------------------------------------------------------------------
 #                                                                  Update locale
@@ -40,31 +40,21 @@ locale-gen
 #-------------------------------------------------------------------------------
 #                                                                  Configure locale.conf.
 
-echo "LANG=en_GB.UTF-8" >>/etc/locale.conf
+echo "LANG=en_GB.UTF-8" >> /etc/locale.conf
 
 #-------------------------------------------------------------------------------
 #                                                                 Set terminal fonts
 
-echo "FONT=ter-132n" >>/etc/vconsole.conf
-echo "FONT_MAP=8859-1" >>/etc/vconsole.conf
-
-#                                                                Set keyboard layout
-
-echo 'Section "InputClass"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
-echo '        Identifier "system-keyboard"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
-echo '          MatchIsKeyboard "on"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
-echo '          Option "XkbLayout" "us"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
-echo '          Option "XkbModel" "pc105"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
-echo '          Option "XkbVariant" "intl"' >>/etc/X11/xorg.conf.d/00-keyboard.conf
-echo 'EndSection' >>/etc/X11/xorg.conf.d/00-keyboard.conf
+echo "FONT=ter-132n" >> /etc/vconsole.conf
+echo "FONT_MAP=8859-1" >> /etc/vconsole.conf
 
 #-------------------------------------------------------------------------------
 #                                                                  Network
 
 echo "$HOST_NAME" >>/etc/hostname
-echo "127.0.0.1 localhost" >>/etc/hosts
-echo "::1       localhost" >>/etc/hosts
-echo "127.0.1.1  ${HOST_NAME}.localdomain $HOST_NAME" >>/etc/hosts
+echo "127.0.0.1 localhost" >> /etc/hosts
+echo "::1       localhost" >> /etc/hosts
+echo "127.0.1.1  ${HOST_NAME}.localdomain $HOST_NAME" >> /etc/hosts
 
 #-------------------------------------------------------------------------------
 #                                                                  set root password
@@ -84,16 +74,13 @@ pacman -Syy
 #-------------------------------------------------------------------------------
 #                                                                  install packages
 
-pacman --needed --noconfirm -S  grub efibootmgr reflector
-pacman --needed --noconfirm -S  networkmanager wpa_supplicant bluez bluez-utils
+pacman --needed --noconfirm -S  grub efibootmgr reflector 
+pacman --needed --noconfirm -S  networkmanager network-manager-applet wpa_supplicant 
 pacman --needed --noconfirm -S  base-devel linux-headers pacman-contrib
-pacman --needed --noconfirm -S  xdg-user-dirs xdg-utils
-pacman --needed --noconfirm -S  wget luarocks npm
+pacman --needed --noconfirm -S  xdg-user-dirs xdg-utils terminus-font
 pacman --needed --noconfirm -S  zsh zsh-completions
-pacman --needed --noconfirm -S  terminus-font
-pacman --needed --noconfirm -S  dosfstools os-prober udiskie ntfs-3g openssl openssh
+pacman --needed --noconfirm -S  udiskie ntfs-3g openssh bluez bluez-utils git
 pacman --needed --noconfirm -S  xf86-video-amdgpu amd-ucode
-pacman --needed --noconfirm -S  gnupg rustup gawk 
 
 #-------------------------------------------------------------------------------
 #                                                                  change shell bash to zsh
@@ -109,7 +96,7 @@ mkinitcpio -p linux
 #-------------------------------------------------------------------------------
 #                                                                  Install grub
 
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB --removable --recheck
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB #--removable --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #-------------------------------------------------------------------------------
@@ -205,7 +192,7 @@ echo "${USER}:${USER_PASSWD}" | chpasswd
 #-------------------------------------------------------------------------------
 #                                                                  make user an administrator
 
-echo "$USER ALL=(ALL) ALL" >>"/etc/sudoers.d/$USER"
+#echo "$USER ALL=(ALL) ALL" >>"/etc/sudoers.d/$USER"
 
 #-------------------------------------------------------------------------------
 #                                                                  enable systemd services
@@ -216,13 +203,6 @@ systemctl enable fstrim.timer
 systemctl enable paccache.timer
 systemctl enable reflector.service
 systemctl enable bluetooth.service
-
-#-------------------------------------------------------------------------------
-#                                                                  os-probe
-
-pacman -S --needed --noconfirm os-prober
-echo "grub_disable_os_prober=false" >>/etc/default/grub
-grub-mkconfig -o /boot/grub/grub.cfg
 
 #-------------------------------------------------------------------------------
 #                                                                  Install post install script.
