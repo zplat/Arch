@@ -6,11 +6,9 @@
 BOOT_DRIVE="sd" # eg BOOT_DRIVE="sdc1".
 ROOT_DRIVE="sd" # eg ROOT_DRIVE="sdc2"
 
-
 #---------------------- DO NOT EDIT
 BOOTDRIVE="/dev/$BOOT_DRIVE" # DO NOT EDIT
 ROOTDRIVE="/dev/$ROOT_DRIVE" # DO NOT EDIT
-
 
 #-----------------------------------------------------------------------------
 #                                                                Update mirrors
@@ -34,20 +32,15 @@ SETUP_URL="https://raw.githubusercontent.com/zplat/Arch/master/02_basic_setup.sh
 mkfs.fat -F32 "$BOOTDRIVE" #Format Boot partition.
 fatlabel "$BOOTDRIVE" BOOT # To label the boot drive.
 mkfs.btrfs -f "$ROOTDRIVE" #Format Root partition. Use -f to force overwrite.
-#mkfs.btrfs -f "$HOMEDRIVE" #Format Home partition. Don't if already setup.
 
 #-----------------------------------------------------------------------------
-#                                                               Mount drives
+#                                                               Mount /mnt
 
 mount "$ROOTDRIVE" /mnt # Volume
-
-btrfs subvolume create /mnt/@ # Create the subvolumes.
-btrfs subvolume create /mnt/@home
-btrfs subvolume create /mnt/@var
-btrfs subvolume create /mnt/@srv
-btrfs subvolume create /mnt/@opt
-btrfs subvolume create /mnt/@tmp
-
+#                                                               Create subvols
+btrfs subvolume create /mnt/@ # Create the subvolumes. Root.
+btrfs subvolume create /mnt/@home # Create the subvolumes. Home.
+#                                                               Unmount /mnt
 umount /mnt # Unmount the drive to mount the subvolumes.
 
 #-----------------------------------------------------------------------------
@@ -57,20 +50,18 @@ SSD_OPTIONS="noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol"
 
 mount -o "$SSD_OPTIONS"=@ "$ROOTDRIVE" /mnt
 
-mkdir /mnt/{home,boot,var,srv,opt,tmp}
+mkdir /mnt/home
 
-mount -o "$SSD_OPTIONS"=@home "$HOMEDRIVE" /mnt/home
-mount -o "$SSD_OPTIONS"=@srv "$ROOTDRIVE" /mnt/srv
-mount -o "$SSD_OPTIONS"=@opt "$ROOTDRIVE" /mnt/opt
-mount -o "$SSD_OPTIONS"=@tmp "$ROOTDRIVE" /mnt/tmp
-mount -o "$SSD_OPTIONS"=@var "$ROOTDRIVE" /mnt/var
+mount -o "$SSD_OPTIONS"=@home "$ROOTDRIVE" /mnt/home
 
-mount "$BOOTDRIVE" /mnt/boot # Mount the boot partition.
+mkdir -p /mnt/boot/efi
+
+mount "$BOOTDRIVE" /mnt/boot/efi # Mount the boot partition.
 
 #-----------------------------------------------------------------------------
 #                                                               Install  initial programs
 
-pacstrap /mnt base linux linux-firmware linux-firmware-whence neovim git btrfs-progs
+pacstrap -K /mnt base linux linux-firmware btrfs-progs vim 
 
 #-----------------------------------------------------------------------------
 #                                                               fstab
