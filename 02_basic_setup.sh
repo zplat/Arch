@@ -74,12 +74,12 @@ pacman -Syy
 #-------------------------------------------------------------------------------
 #                                                                  install packages
 
-pacman --needed --noconfirm -S  grub efibootmgr reflector 
+pacman --needed --noconfirm -S  grub efibootmgr reflector
 pacman --needed --noconfirm -S  networkmanager network-manager-applet wpa_supplicant 
 pacman --needed --noconfirm -S  base-devel linux-headers pacman-contrib
 pacman --needed --noconfirm -S  xdg-user-dirs xdg-utils terminus-font
 pacman --needed --noconfirm -S  zsh zsh-completions
-pacman --needed --noconfirm -S  udiskie ntfs-3g openssh bluez bluez-utils git
+pacman --needed --noconfirm -S  udiskie ntfs-3g openssh bluez bluez-utils git moreutils
 pacman --needed --noconfirm -S  xf86-video-amdgpu amd-ucode
 
 #-------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ Type = Package
 Target = *
 [Action]
 When = PostTransaction
-Exec = /usr/bin/bash -c \"/usr/bin/pacman -Qtd || /usr/bin/echo '==> no orphans found'\"
+Exec = /usr/bin/bash -c \"/usr/bin/pacman -Qtd > $ARCH_RESPOSITORY/orphanpkglist.txt || /usr/bin/echo '==> no orphans found'\"
 " >/usr/share/libalpm/hooks/pkgClean.hook
 
 #------------------------list of Core programs
@@ -153,7 +153,7 @@ Type = Package
 Target = *
 [Action]
 When = PostTransaction
-Exec = /bin/sh -c '/usr/bin/pacman -Qqn > $ARCH_RESPOSITORY/corepkglist.txt'
+Exec = /bin/sh -c '/usr/bin/pacman -Qqent > $ARCH_RESPOSITORY/corepkglist.txt'
 " >/usr/share/libalpm/hooks/pkgCore.hook
 
 #------------------------list of AUR programs
@@ -165,7 +165,7 @@ Type = Package
 Target = *
 [Action]
 When = PostTransaction
-Exec = /bin/sh -c '/usr/bin/pacman -Qqm > $ARCH_RESPOSITORY/aurpkglist.txt'
+Exec = /bin/sh -c '/usr/bin/pacman -Qqem > $ARCH_RESPOSITORY/aurpkglist.txt'
 " >/usr/share/libalpm/hooks/pkgAUR.hook
 
 #-------------------------------------------------------------------------------
